@@ -2,10 +2,10 @@
 
 namespace Kenepa\ResourceLock\Models\Concerns;
 
-use Carbon\Carbon;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Kenepa\ResourceLock\Models\ResourceLock;
+use Kenepa\ResourceLock\ResourceLockPlugin;
 
 /**
  * The HasLocks trait provides several functions to models to handle locking and unlocking of records.
@@ -17,22 +17,29 @@ trait HasLocks
      */
     public function resourceLock(): MorphOne
     {
-        return $this->morphOne(config('resource-lock.models.ResourceLock', ResourceLock::class), 'lockable');
+        return $this->morphOne(ResourceLockPlugin::get()->getResourceLockModel(), 'lockable');
     }
 
     /**
      * Lock the resource.
+     * Calling lock() on an already locked model will refresh the lock if it belongs to the current user.
      *
      * @return bool Returns true if locking the resource was successful, false otherwise.
      */
     public function lock(): bool
     {
-        if (! $this->isLocked()) {
-            $resourceLockModel = config('resource-lock.models.ResourceLock', ResourceLock::class);
+        if ($this->isUnlocked()) {
+            $resourceLockModel = ResourceLockPlugin::get()->getResourceLockModel();
             $guard = $this->getCurrentAuthGuardName();
             $resourceLock = new $resourceLockModel;
             $resourceLock->user_id = auth()->guard($guard)->user()->id;
             $this->resourceLock()->save($resourceLock);
+
+            return true;
+        }
+
+        if ($this->isLockedByCurrentUser()) {
+            $this->resourceLock()->touch();
 
             return true;
         }
@@ -68,7 +75,17 @@ trait HasLocks
             return false;
         }
 
-        return $this->resourceLock->exists();
+        return $this->resourceLock->exists() && ! $this->resourceLock->isExpired();
+    }
+
+    /**
+     * Check if the resource is unlocked.
+     *
+     * @return bool Returns true if the resource is unlocked, false otherwise.
+     */
+    public function isUnlocked(): bool
+    {
+        return ! $this->isLocked();
     }
 
     /**
@@ -78,19 +95,17 @@ trait HasLocks
      */
     public function hasExpiredLock(): bool
     {
-        if (! $this->isLocked()) {
-            return false;
+        if ($this->isUnlocked()) {
+            return true;
         }
 
-        $expiredDate = (new Carbon($this->resourceLock->updated_at))->addMinutes(config('resource-lock.lock_timeout'));
-
-        return Carbon::now()->greaterThan($expiredDate);
+        return $this->resourceLock->isExpired();
     }
 
     /**
      * Unlock the resource.
      *
-     * @param  bool  $force Whether to force unlock or not.
+     * @param  bool  $force  Whether to force unlock or not.
      * @return bool Returns true if unlocking the resource was successful, false otherwise.
      */
     public function unlock(bool $force = false): bool
@@ -123,7 +138,7 @@ trait HasLocks
      *
      * @return array|null
      */
-    private function getCurrentAuthGuardName(): string|null
+    private function getCurrentAuthGuardName(): ?string
     {
         if (Filament::getCurrentPanel() === null) {
             return null;

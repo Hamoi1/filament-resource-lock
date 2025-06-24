@@ -2,6 +2,8 @@
 
 namespace Kenepa\ResourceLock\Resources\Pages\Concerns;
 
+use Kenepa\ResourceLock\ResourceLockPlugin;
+
 trait UsesSimpleResourceLock
 {
     use UsesLocks;
@@ -20,6 +22,7 @@ trait UsesSimpleResourceLock
             'resourceLockObserver::init' => 'resourceLockObserverInit',
             'resourceLockObserver::unload' => 'resourceLockObserverUnload',
             'resourceLockObserver::unlock' => 'resourceLockObserverUnlock',
+            'resourceLockObserver::renewLock' => 'renewLock',
         ]);
     }
 
@@ -29,15 +32,15 @@ trait UsesSimpleResourceLock
         $this->resourceRecord = $this->getMountedTableActionRecord();
 
         $this->returnUrl = $this->getResource()::getUrl('index');
-        $this->checkIfResourceLockHasExpired($this->resourceRecord);
-        $this->lockResource($this->resourceRecord);
+        $this->initializeResourceLock($this->resourceRecord);
+        $this->setupPolling();
 
         return null;
     }
 
     public function callMountedTableAction(array $arguments = []): mixed
     {
-        if (config('resource-lock.check_locks_before_saving', true)) {
+        if (ResourceLockPlugin::get()->shouldCheckLocksBeforeSaving()) {
             $this->resourceRecord->refresh();
             if ($this->resourceRecord->isLocked() && ! $this->resourceRecord->isLockedByCurrentUser()) {
                 $this->checkIfResourceLockHasExpired($this->resourceRecord);
@@ -54,6 +57,7 @@ trait UsesSimpleResourceLock
     public function resourceLockObserverUnload()
     {
         $this->resourceRecord->unlock();
+        $this->disablePolling();
     }
 
     public function resourceLockObserverUnlock()
@@ -66,8 +70,8 @@ trait UsesSimpleResourceLock
 
     public function getResourceLockOwner(): void
     {
-        if (config('resource-lock.lock_notice.display_resource_lock_owner', false)) {
-            $getResourceLockOwnerActionClass = config('resource-lock.actions.get_resource_lock_owner_action');
+        if ($this->resourceRecord?->resourceLock && ResourceLockPlugin::get()->shouldDisplayResourceLockOwner()) {
+            $getResourceLockOwnerActionClass = ResourceLockPlugin::get()->getResourceLockOwnerAction();
             $getResourceLockOwnerAction = app($getResourceLockOwnerActionClass);
 
             $this->resourceLockOwner = $getResourceLockOwnerAction->execute($this->resourceRecord->resourceLock->user);

@@ -1,66 +1,186 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Kenepa\ResourceLock\Models\ResourceLock;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;
 
-it('can lock a resource', function () {
-    $user = createUser();
-    actingAs($user);
-    $post = createPost();
+describe('Resource Locking', function () {
+    it('can lock a resource', function () {
+        // Arrange
+        $user = createUser();
+        actingAs($user);
+        $post = createPost();
 
-    $post->lock();
-    $post->refresh();
+        // Act
+        $post->lock();
+        $post->refresh();
 
-    expect($post->resourceLock->lockable_id)
-        ->toBe($post->id)
+        // Assert
+        expect($post->resourceLock->lockable_id)
+            ->toBe($post->id)
             ->and($post->resourceLock->user_id)
             ->toBe($user->id);
-    assertDatabaseCount(ResourceLock::class, 1);
-
-    expect($post->isLockedByCurrentUser())->toBeTrue();
-    expect($post->isLocked())->toBeTrue();
+        assertDatabaseCount(ResourceLock::class, 1);
+        expect($post->isLockedByCurrentUser())->toBeTrue();
+        expect($post->isLocked())->toBeTrue();
+    });
 });
 
-it('can unlock a resource', function () {
+describe('Resource Unlocking', function () {
+    it('can unlock a resource', function () {
+        // Arrange
+        $user = createUser();
+        actingAs($user);
+        $post = createPost();
+        $post->lock();
+
+        // Act
+        $post->refresh();
+        $post->unlock();
+        $post->refresh();
+
+        // Assert
+        expect($post->resourceLock)->toBeNull();
+        assertDatabaseCount(ResourceLock::class, 0);
+        expect($post->isLockedByCurrentUser())->toBeFalse();
+        expect($post->isLocked())->toBeFalse();
+    });
+
+    it('can unlock a resource by force', function () {
+        // Arrange
+        $user = createUser();
+        actingAs($user);
+        $post = createPost();
+        $post->lock();
+        $admin = createUser();
+        actingAs($admin);
+
+        // Act
+        $post->refresh();
+        $forceLockResult = $post->unlock(force: true);
+        $post->refresh();
+
+        // Assert
+        assertDatabaseCount(ResourceLock::class, 0);
+        expect($post->resourceLock)->toBeNull();
+        expect($forceLockResult)->toBeTrue();
+    });
+});
+
+describe('Lock Status Checks', function () {
+    it('can check if a lock has been expired', function () {
+        // Arrange
+        $user = createUser();
+        actingAs($user);
+        $post = createPost();
+        createExpiredResourceLock($user, $post);
+
+        // Act
+        // (No explicit act step, as the check is the assertion)
+
+        // Assert
+        expect($post->hasExpiredLock())->toBeTrue();
+    });
+});
+
+describe('Lock Timestamp Updates', function () {
+    it('updates timestamp when lock is refreshed by current user', function () {
+        // Arrange
+        $user = createUser();
+        actingAs($user);
+        $post = createPost();
+
+        $post->lock();
+        $post->refresh();
+        $initialTimestamp = $post->resourceLock->updated_at;
+
+        // Act
+        sleep(1);
+        $result = $post->lock();
+        $post->refresh();
+
+        // Assert
+        expect($result)->toBeTrue();
+        expect($post->resourceLock->updated_at)->toBeGreaterThan($initialTimestamp);
+        assertDatabaseCount(ResourceLock::class, 1);
+    });
+});
+
+it('detects lock when another user tries to edit a locked resource', function () {
+    // Arrange
+    $user1 = createUser();
+    $post = createPost();
+
+    actingAs($user1);
+    $post->lock();
+
+    $user2 = createUser();
+    actingAs($user2);
+
+    // Act & Assert
+    $post->refresh();
+    expect($post->isLocked())->toBeTrue()
+        ->and($post->isLockedByCurrentUser())->toBeFalse();
+});
+
+it('automatically considers locks expired after timeout period', function () {
+    // Arrange
     $user = createUser();
     actingAs($user);
     $post = createPost();
     $post->lock();
 
-    $post->refresh();
-    $post->unlock();
+    // Act
+    ResourceLock::where('lockable_id', $post->id)->update([
+        'updated_at' => Carbon::now()->subMinutes(30),
+    ]);
     $post->refresh();
 
-    expect($post->resourceLock)->toBeNull();
-    assertDatabaseCount(ResourceLock::class, 0);
-    expect($post->isLockedByCurrentUser())->toBeFalse();
+    // Assert
+    expect($post->hasExpiredLock())->toBeTrue();
     expect($post->isLocked())->toBeFalse();
 });
 
-it('can unlock a resource by force', function () {
-    $user = createUser();
-    actingAs($user);
+it('prevents unlocking by a different user without force', function () {
+    // Arrange
+    $user1 = createUser();
+    actingAs($user1);
     $post = createPost();
     $post->lock();
-    $admin = createUser();
-    actingAs($admin);
 
+    $user2 = createUser();
+    actingAs($user2);
+
+    // Act
     $post->refresh();
-    $forceLockResult = $post->unlock(force: true);
+    $unlockResult = $post->unlock(force: false);
     $post->refresh();
 
-    assertDatabaseCount(ResourceLock::class, 0);
-    expect($post->resourceLock)->toBeNull();
-    expect($forceLockResult)->toBeTrue();
+    // Assert
+    expect($unlockResult)->toBeFalse();
+    expect($post->isLocked())->toBeTrue();
+    assertDatabaseCount(ResourceLock::class, 1);
 });
 
-it('can check if a lock has been expired', function () {
-    $user = createUser();
-    actingAs($user);
+it('prevents locking a resource that is already locked by another user', function () {
+    // Arrange
+    $user1 = createUser();
+    actingAs($user1);
     $post = createPost();
-    createExpiredResourceLock($user, $post);
+    $post->lock();
 
-    expect($post->hasExpiredLock())->toBeTrue();
+    $user2 = createUser();
+    actingAs($user2);
+
+    // Act
+    $post->refresh();
+    $lockResult = $post->lock();
+
+    // Assert
+    expect($lockResult)->toBeFalse();
+    expect($post->isLocked())->toBeTrue();
+    expect($post->isLockedByCurrentUser())->toBeFalse();
+    assertDatabaseCount(ResourceLock::class, 1);
 });
