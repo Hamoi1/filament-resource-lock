@@ -1,10 +1,10 @@
 <?php
 
-use Carbon\Carbon;
 use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 use Blendbyte\FilamentResourceLock\Tests\Resources\Models\Post;
 use Blendbyte\FilamentResourceLock\Tests\Resources\Models\User;
 use Blendbyte\FilamentResourceLock\Tests\TestCase;
+use Carbon\Carbon;
 
 uses(TestCase::class)->in(__DIR__);
 

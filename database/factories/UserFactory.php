@@ -2,8 +2,8 @@
 
 namespace Blendbyte\FilamentResourceLock\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Blendbyte\FilamentResourceLock\Tests\Resources\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {

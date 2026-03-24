@@ -63,8 +63,8 @@ describe('ResourceLockObserver Keep-Alive Configuration', function () {
 
         $html = $component->viewData('usesPollingToDetectPresence')
             ? $component->viewData('pollingKeepAlive')
-                ? 'wire:poll.keep-alive.' . $component->viewData('presencePollingInterval') . 's'
-                : 'wire:poll.' . $component->viewData('presencePollingInterval') . 's'
+                ? 'wire:poll.keep-alive.'.$component->viewData('presencePollingInterval').'s'
+                : 'wire:poll.'.$component->viewData('presencePollingInterval').'s'
             : null;
 
         expect($html)->toBe('wire:poll.keep-alive.10s');
@@ -82,8 +82,8 @@ describe('ResourceLockObserver Keep-Alive Configuration', function () {
 
         $html = $component->viewData('usesPollingToDetectPresence')
             ? $component->viewData('pollingKeepAlive')
-                ? 'wire:poll.keep-alive.' . $component->viewData('presencePollingInterval') . 's'
-                : 'wire:poll.' . $component->viewData('presencePollingInterval') . 's'
+                ? 'wire:poll.keep-alive.'.$component->viewData('presencePollingInterval').'s'
+                : 'wire:poll.'.$component->viewData('presencePollingInterval').'s'
             : null;
 
         expect($html)->toBe('wire:poll.15s');
@@ -117,7 +117,6 @@ describe('ResourceLockObserver Keep-Alive Configuration', function () {
         expect($component->get('usesPollingToDetectPresence'))->toBeTrue();
     });
 
-
     it('resets visible when disabling polling', function () {
         $panel = filament()->getDefaultPanel();
         $panel->plugin(ResourceLockPlugin::make()
@@ -144,11 +143,11 @@ describe('ResourceLockObserver Keep-Alive Configuration', function () {
         $component = Livewire::test(ResourceLockObserver::class);
         $component->call('enablePolling');
 
-        $html = $component->viewData('usesPollingToDetectPresence') 
-            ? 'wire:poll' . 
-              ($component->viewData('pollingKeepAlive') ? '.keep-alive' : '') .
-              ($component->viewData('pollingVisible') ? '.visible' : '') .
-              '.' . $component->viewData('presencePollingInterval') . 's'
+        $html = $component->viewData('usesPollingToDetectPresence')
+            ? 'wire:poll'.
+              ($component->viewData('pollingKeepAlive') ? '.keep-alive' : '').
+              ($component->viewData('pollingVisible') ? '.visible' : '').
+              '.'.$component->viewData('presencePollingInterval').'s'
             : null;
 
         expect($html)->toBe('wire:poll.visible.20s');
@@ -165,11 +164,11 @@ describe('ResourceLockObserver Keep-Alive Configuration', function () {
         $component = Livewire::test(ResourceLockObserver::class);
         $component->call('enablePolling');
 
-        $html = $component->viewData('usesPollingToDetectPresence') 
-            ? 'wire:poll' . 
-              ($component->viewData('pollingKeepAlive') ? '.keep-alive' : '') .
-              ($component->viewData('pollingVisible') ? '.visible' : '') .
-              '.' . $component->viewData('presencePollingInterval') . 's'
+        $html = $component->viewData('usesPollingToDetectPresence')
+            ? 'wire:poll'.
+              ($component->viewData('pollingKeepAlive') ? '.keep-alive' : '').
+              ($component->viewData('pollingVisible') ? '.visible' : '').
+              '.'.$component->viewData('presencePollingInterval').'s'
             : null;
 
         expect($html)->toBe('wire:poll.keep-alive.visible.30s');

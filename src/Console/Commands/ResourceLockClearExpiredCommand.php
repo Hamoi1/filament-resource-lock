@@ -2,9 +2,9 @@
 
 namespace Blendbyte\FilamentResourceLock\Console\Commands;
 
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 use Exception;
 use Illuminate\Console\Command;
-use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 class ResourceLockClearExpiredCommand extends Command
 {
@@ -41,7 +41,7 @@ class ResourceLockClearExpiredCommand extends Command
 
             $this->info('All expired resource locks successfully removed.');
         } catch (Exception $e) {
-            $this->error('Failed to clear expired resource locks: ' . $e->getMessage());
+            $this->error('Failed to clear expired resource locks: '.$e->getMessage());
 
             return;
         }

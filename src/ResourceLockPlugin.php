@@ -2,13 +2,14 @@
 
 namespace Blendbyte\FilamentResourceLock;
 
+use Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Resources\LockResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Blendbyte\FilamentResourceLock\Models\ResourceLock;
-use Blendbyte\FilamentResourceLock\Resources\LockResource;
 
 class ResourceLockPlugin implements Plugin
 {
@@ -303,7 +304,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getResourceLockOwnerAction(): string
     {
-        return $this->resourceLockOwnerAction ?? config('filament-resource-lock.actions.get_resource_lock_owner_action', \Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction::class);
+        return $this->resourceLockOwnerAction ?? config('filament-resource-lock.actions.get_resource_lock_owner_action', GetResourceLockOwnerAction::class);
     }
 
     public function usesPollingToDetectPresence(bool $enable = true): static

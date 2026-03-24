@@ -9,7 +9,7 @@ function getResourceLockNavigationItem($panel, string $group = 'Settings', strin
     $navigationItems = $panel->getNavigation();
 
     $navigationItem = array_find($navigationItems, function ($value, $key) use ($group) {
-       return str_contains($key, $group);
+        return str_contains($key, $group);
     });
 
     return $navigationItem->getItems()[$label];
@@ -96,7 +96,6 @@ describe('Polling Configuration', function () {
 
         expect($plugin->shouldUsePollingKeepAlive())->toBeTrue();
     });
-
 
     it('uses default visible value when not configured', function () {
         $plugin = ResourceLockPlugin::make();

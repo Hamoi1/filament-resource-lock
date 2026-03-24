@@ -2,8 +2,8 @@
 
 namespace Blendbyte\FilamentResourceLock\Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Blendbyte\FilamentResourceLock\Models\ResourceLock;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ResourceLockFactory extends Factory
 {

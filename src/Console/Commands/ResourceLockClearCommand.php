@@ -2,9 +2,9 @@
 
 namespace Blendbyte\FilamentResourceLock\Console\Commands;
 
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 use Exception;
 use Illuminate\Console\Command;
-use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 class ResourceLockClearCommand extends Command
 {
@@ -33,7 +33,7 @@ class ResourceLockClearCommand extends Command
             ResourceLock::truncate();
             $this->info('All resource locks successfully removed.');
         } catch (Exception $e) {
-            $this->error('Failed to clear resource locks: ' . $e->getMessage());
+            $this->error('Failed to clear resource locks: '.$e->getMessage());
 
             return;
         }

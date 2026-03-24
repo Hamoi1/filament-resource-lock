@@ -2,10 +2,10 @@
 
 namespace Blendbyte\FilamentResourceLock\Resources\LockResource;
 
-use Filament\Actions\Action;
-use Filament\Resources\Pages\ManageRecords;
 use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 use Blendbyte\FilamentResourceLock\Resources\LockResource;
+use Filament\Actions\Action;
+use Filament\Resources\Pages\ManageRecords;
 
 class ManageResourceLocks extends ManageRecords
 {
