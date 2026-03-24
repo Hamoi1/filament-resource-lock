@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\User;
+use Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction;
+use Blendbyte\FilamentResourceLock\Resources\LockResource;
+
 return [
 
     /*
@@ -14,7 +18,7 @@ return [
     */
 
     'models' => [
-        'User' => \App\Models\User::class,
+        'User' => User::class,
         // 'ResourceLock' => null,
     ],
 
@@ -28,7 +32,7 @@ return [
     |
     */
     'resource' => [
-        'class' => \Blendbyte\FilamentResourceLock\Resources\LockResource::class,
+        'class' => LockResource::class,
     ],
 
     /*
@@ -125,6 +129,6 @@ return [
    */
 
     'actions' => [
-        'get_resource_lock_owner_action' => \Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction::class,
+        'get_resource_lock_owner_action' => GetResourceLockOwnerAction::class,
     ],
 ];

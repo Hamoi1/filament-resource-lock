@@ -4,6 +4,8 @@ namespace Blendbyte\FilamentResourceLock\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
+use Blendbyte\FilamentResourceLock\ResourceLockServiceProvider;
+use Blendbyte\FilamentResourceLock\Tests\Fixtures\AdminPanelProvider;
 use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
@@ -14,8 +16,6 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Blendbyte\FilamentResourceLock\ResourceLockServiceProvider;
-use Blendbyte\FilamentResourceLock\Tests\Fixtures\AdminPanelProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -26,7 +26,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Blendbyte\\FilamentResourceLock\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Blendbyte\\FilamentResourceLock\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -41,16 +41,16 @@ class TestCase extends Orchestra
         config()->set('filament-resource-lock.models.User', '\Blendbyte\FilamentResourceLock\Tests\Resources\Models\User');
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
-        $migration = include __DIR__ . '/../database/migrations/create_resource_lock_table.php.stub';
+        $migration = include __DIR__.'/../database/migrations/create_resource_lock_table.php.stub';
         $migration->up();
 
-        $migration = include __DIR__ . '/Migrations/post_migration.php';
+        $migration = include __DIR__.'/Migrations/post_migration.php';
         $migration->up();
 
-        $migration = include __DIR__ . '/Migrations/user_migration.php';
+        $migration = include __DIR__.'/Migrations/user_migration.php';
         $migration->up();
 
-        view()->addLocation(__DIR__ . '/Fixtures/views');
+        view()->addLocation(__DIR__.'/Fixtures/views');
     }
 
     protected function getPackageProviders($app)

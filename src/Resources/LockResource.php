@@ -2,16 +2,15 @@
 
 namespace Blendbyte\FilamentResourceLock\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Tables;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\Resources\LockResource\ManageResourceLocks;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Gate;
-use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
-use Blendbyte\FilamentResourceLock\Resources\LockResource\ManageResourceLocks;
 
 class LockResource extends Resource
 {
@@ -38,7 +37,7 @@ class LockResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Tables\Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
@@ -75,13 +74,13 @@ class LockResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 DeleteAction::make()
                     ->icon('heroicon-o-lock-open')
                     ->successNotificationTitle(__('filament-resource-lock::manager.unlocked'))
                     ->label(__('filament-resource-lock::manager.unlock')),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 DeleteBulkAction::make()
                     ->deselectRecordsAfterCompletion()
                     ->requiresConfirmation()
@@ -126,7 +125,7 @@ class LockResource extends Resource
             return null;
         }
 
-        return static::getModel()::count();
+        return (string) static::getModel()::count();
     }
 
     public static function getNavigationLabel(): string

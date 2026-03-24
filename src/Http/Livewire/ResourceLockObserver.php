@@ -2,8 +2,8 @@
 
 namespace Blendbyte\FilamentResourceLock\Http\Livewire;
 
-use Illuminate\Support\Facades\Gate;
 use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\On;
 use Livewire\Component;
 

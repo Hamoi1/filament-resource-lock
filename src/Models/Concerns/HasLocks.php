@@ -2,10 +2,10 @@
 
 namespace Blendbyte\FilamentResourceLock\Models\Concerns;
 
-use Filament\Facades\Filament;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * The HasLocks trait provides several functions to models to handle locking and unlocking of records.
