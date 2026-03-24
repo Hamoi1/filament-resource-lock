@@ -13,6 +13,13 @@ class ResourceLockServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'filament-resource-lock';
 
+    public function packageRegistered(): void
+    {
+        $this->callAfterResolving('livewire.finder', function ($finder) {
+            $finder->addComponent('filament-resource-lock-observer', class: Http\Livewire\ResourceLockObserver::class);
+        });
+    }
+
     public function packageBooted(): void
     {
         parent::packageBooted();
