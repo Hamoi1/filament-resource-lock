@@ -3,6 +3,7 @@
 namespace Blendbyte\FilamentResourceLock\Resources\Pages\Concerns;
 
 use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Livewire\Attributes\On;
 
 /*
  * The Resource Lock Trait provides several functions to an Edit Resource page to lock & unlock resources.
@@ -19,26 +20,7 @@ trait UsesResourceLock
 
     private bool $isLockable = true;
 
-    /*
-     * Initializes livewire event listeners on boot. This function uses livewire lifecycle hooks
-     * to hook into lifecycle events of the livewire component that uses this trait
-     * learn more: https://laravel-livewire.com/docs/2.x/traits
-     */
-    public function bootUsesResourceLock(): void
-    {
-        $this->listeners = array_merge($this->listeners, [
-            'resourceLockObserver::init' => 'resourceLockObserverInit',
-            'resourceLockObserver::unload' => 'resourceLockObserverUnload',
-            'resourceLockObserver::unlock' => 'resourceLockObserverUnlock',
-            'resourceLockObserver::renewLock' => 'renewLock',
-        ]);
-    }
-
-    /*
-     * This function is triggered when the resource lock observer component has been loaded.
-     * The resource lock observer is a livewire component that triggers function based
-     * on certain states and events that are happening on the page.
-     */
+    #[On('resourceLockObserver::init')]
     public function resourceLockObserverInit()
     {
         $this->returnUrl = $this->getResource()::getUrl('index');
@@ -46,6 +28,7 @@ trait UsesResourceLock
         $this->setupPolling();
     }
 
+    #[On('resourceLockObserver::unload')]
     public function resourceLockObserverUnload()
     {
         $this->record->unlock();
@@ -56,6 +39,7 @@ trait UsesResourceLock
      * presented to the users. This action is seen as forced unlock and will replace any lock
      * That is currently in place for that specific resource. Hone this power with care.
      */
+    #[On('resourceLockObserver::unlock')]
     public function resourceLockObserverUnlock()
     {
         if ($this->record->unlock(force: true)) {
