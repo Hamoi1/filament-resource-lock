@@ -1,10 +1,10 @@
 <?php
 
-namespace Kenepa\ResourceLock\Tests\Resources\Models;
+namespace Blendbyte\FilamentResourceLock\Tests\Resources\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kenepa\ResourceLock\Models\Concerns\HasLocks;
+use Blendbyte\FilamentResourceLock\Models\Concerns\HasLocks;
 
 class Post extends Model
 {

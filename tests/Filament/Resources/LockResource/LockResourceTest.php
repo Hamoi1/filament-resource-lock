@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kenepa\ResourceLock\Resources\LockResource\ManageResourceLocks;
+use Blendbyte\FilamentResourceLock\Resources\LockResource\ManageResourceLocks;
 
 use function Pest\Livewire\livewire;
 

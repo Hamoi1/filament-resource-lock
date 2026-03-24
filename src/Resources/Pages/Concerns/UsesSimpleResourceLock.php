@@ -1,8 +1,8 @@
 <?php
 
-namespace Kenepa\ResourceLock\Resources\Pages\Concerns;
+namespace Blendbyte\FilamentResourceLock\Resources\Pages\Concerns;
 
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 
 trait UsesSimpleResourceLock
 {

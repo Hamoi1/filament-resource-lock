@@ -1,14 +1,14 @@
 <?php
 
-namespace Kenepa\ResourceLock\Console\Commands;
+namespace Blendbyte\FilamentResourceLock\Console\Commands;
 
 use Exception;
 use Illuminate\Console\Command;
-use Kenepa\ResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 class ResourceLockClearCommand extends Command
 {
-    protected $signature = 'resource-lock:clear {--force : Force clear without confirmation}';
+    protected $signature = 'filament-resource-lock:clear {--force : Force clear without confirmation}';
 
     protected $description = 'Clear all resource locks from the database';
 

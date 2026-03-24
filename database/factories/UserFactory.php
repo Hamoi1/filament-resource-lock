@@ -1,9 +1,9 @@
 <?php
 
-namespace Kenepa\ResourceLock\Database\Factories;
+namespace Blendbyte\FilamentResourceLock\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kenepa\ResourceLock\Tests\Resources\Models\User;
+use Blendbyte\FilamentResourceLock\Tests\Resources\Models\User;
 
 class UserFactory extends Factory
 {

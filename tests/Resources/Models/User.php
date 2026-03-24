@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Tests\Resources\Models;
+namespace Blendbyte\FilamentResourceLock\Tests\Resources\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

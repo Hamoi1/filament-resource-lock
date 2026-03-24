@@ -1,10 +1,10 @@
 <?php
 
 use Carbon\Carbon;
-use Kenepa\ResourceLock\Models\ResourceLock;
-use Kenepa\ResourceLock\Tests\Resources\Models\Post;
-use Kenepa\ResourceLock\Tests\Resources\Models\User;
-use Kenepa\ResourceLock\Tests\TestCase;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Tests\Resources\Models\Post;
+use Blendbyte\FilamentResourceLock\Tests\Resources\Models\User;
+use Blendbyte\FilamentResourceLock\Tests\TestCase;
 
 uses(TestCase::class)->in(__DIR__);
 
@@ -37,7 +37,7 @@ function createExpiredResourceLock(User $user, Post $post): ResourceLock
     $resourceLock = (new ResourceLock)->forceFill([
         'updated_at' => Carbon::now()->subMinutes(30),
         'user_id' => $user->id,
-        'lockable_type' => 'Kenepa\ResourceLock\Tests\Resources\Models\Post',
+        'lockable_type' => 'Blendbyte\FilamentResourceLock\Tests\Resources\Models\Post',
         'lockable_id' => $post->id,
     ]);
 
@@ -51,7 +51,7 @@ function createActiveResourceLock($user, $post): ResourceLock
     $resourceLock = (new ResourceLock)->forceFill([
         'updated_at' => Carbon::now(),
         'user_id' => $user->id,
-        'lockable_type' => 'Kenepa\ResourceLock\Tests\Resources\Models\Post',
+        'lockable_type' => 'Blendbyte\FilamentResourceLock\Tests\Resources\Models\Post',
         'lockable_id' => $post->id,
     ]);
 

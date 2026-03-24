@@ -1,6 +1,6 @@
 <?php
 
-use Kenepa\ResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 use function Pest\Laravel\artisan;
 use function Pest\Laravel\assertDatabaseCount;
@@ -19,7 +19,7 @@ describe('ResourceLockClearCommand', function () {
         assertDatabaseCount(ResourceLock::class, 2);
 
         // Act
-        artisan('resource-lock:clear --force')
+        artisan('filament-filament-resource-lock:clear --force')
             ->expectsOutput('Removing 2 resource lock(s)...')
             ->expectsOutput('All resource locks successfully removed.')
             ->assertExitCode(0);
@@ -37,7 +37,7 @@ describe('ResourceLockClearCommand', function () {
         assertDatabaseCount(ResourceLock::class, 1);
 
         // Act - user confirms
-        artisan('resource-lock:clear')
+        artisan('filament-filament-resource-lock:clear')
             ->expectsConfirmation('Are you sure you want to clear all resource locks? This action cannot be undone.', 'yes')
             ->expectsOutput('Removing 1 resource lock(s)...')
             ->expectsOutput('All resource locks successfully removed.')
@@ -56,7 +56,7 @@ describe('ResourceLockClearCommand', function () {
         assertDatabaseCount(ResourceLock::class, 1);
 
         // Act - user declines
-        artisan('resource-lock:clear')
+        artisan('filament-filament-resource-lock:clear')
             ->expectsConfirmation('Are you sure you want to clear all resource locks? This action cannot be undone.', 'no')
             ->expectsOutput('Operation cancelled.')
             ->assertExitCode(0);
@@ -70,7 +70,7 @@ describe('ResourceLockClearCommand', function () {
         assertDatabaseCount(ResourceLock::class, 0);
 
         // Act
-        artisan('resource-lock:clear --force')
+        artisan('filament-filament-resource-lock:clear --force')
             ->expectsOutput('No resource locks found to clear.')
             ->assertExitCode(0);
 
@@ -97,7 +97,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 3);
 
         // Act
-        artisan('resource-lock:clear-expired --force')
+        artisan('filament-filament-resource-lock:clear-expired --force')
             ->expectsOutput('Removing 2 expired resource lock(s)...')
             ->expectsOutput('All expired resource locks successfully removed.')
             ->assertExitCode(0);
@@ -120,7 +120,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 1);
 
         // Act - user confirms
-        artisan('resource-lock:clear-expired')
+        artisan('filament-filament-resource-lock:clear-expired')
             ->expectsConfirmation('Are you sure you want to clear all expired resource locks? This action cannot be undone.', 'yes')
             ->expectsOutput('Removing 1 expired resource lock(s)...')
             ->expectsOutput('All expired resource locks successfully removed.')
@@ -139,7 +139,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 1);
 
         // Act - user declines
-        artisan('resource-lock:clear-expired')
+        artisan('filament-filament-resource-lock:clear-expired')
             ->expectsConfirmation('Are you sure you want to clear all expired resource locks? This action cannot be undone.', 'no')
             ->expectsOutput('Operation cancelled.')
             ->assertExitCode(0);
@@ -157,7 +157,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 1);
 
         // Act
-        artisan('resource-lock:clear-expired --force')
+        artisan('filament-filament-resource-lock:clear-expired --force')
             ->expectsOutput('No expired resource locks found to clear.')
             ->assertExitCode(0);
 
@@ -183,7 +183,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 4);
 
         // Act
-        artisan('resource-lock:clear-expired --force')
+        artisan('filament-filament-resource-lock:clear-expired --force')
             ->expectsOutput('Removing 2 expired resource lock(s)...')
             ->expectsOutput('All expired resource locks successfully removed.')
             ->assertExitCode(0);
@@ -204,7 +204,7 @@ describe('ResourceLockClearExpiredCommand', function () {
         assertDatabaseCount(ResourceLock::class, 0);
 
         // Act
-        artisan('resource-lock:clear-expired --force')
+        artisan('filament-filament-resource-lock:clear-expired --force')
             ->expectsOutput('No expired resource locks found to clear.')
             ->assertExitCode(0);
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Kenepa\ResourceLock\Http\Livewire;
+namespace Blendbyte\FilamentResourceLock\Http\Livewire;
 
 use Illuminate\Support\Facades\Gate;
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -21,7 +21,7 @@ class ResourceLockObserver extends Component
 
     public function render()
     {
-        return view('resource-lock::components.resource-lock-observer');
+        return view('filament-resource-lock::components.resource-lock-observer');
     }
 
     public function mount()

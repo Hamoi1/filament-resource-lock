@@ -1,16 +1,16 @@
 <?php
 
-namespace Kenepa\ResourceLock;
+namespace Blendbyte\FilamentResourceLock;
 
-use Kenepa\ResourceLock\Console\Commands\ResourceLockClearCommand;
-use Kenepa\ResourceLock\Console\Commands\ResourceLockClearExpiredCommand;
+use Blendbyte\FilamentResourceLock\Console\Commands\ResourceLockClearCommand;
+use Blendbyte\FilamentResourceLock\Console\Commands\ResourceLockClearExpiredCommand;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class ResourceLockServiceProvider extends PackageServiceProvider
 {
-    public static string $name = 'resource-lock';
+    public static string $name = 'filament-resource-lock';
 
     public function configurePackage(Package $package): void
     {
@@ -23,7 +23,7 @@ class ResourceLockServiceProvider extends PackageServiceProvider
                 $command
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('kenepa/resource-lock');
+                    ->askToStarRepoOnGitHub('blendbyte/filament-resource-lock');
             })
             ->hasCommand(ResourceLockClearCommand::class)
             ->hasCommand(ResourceLockClearExpiredCommand::class);

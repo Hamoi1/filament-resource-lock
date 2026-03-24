@@ -28,7 +28,7 @@ return [
     |
     */
     'resource' => [
-        'class' => \Kenepa\ResourceLock\Resources\LockResource::class,
+        'class' => \Blendbyte\FilamentResourceLock\Resources\LockResource::class,
     ],
 
     /*
@@ -125,6 +125,6 @@ return [
    */
 
     'actions' => [
-        'get_resource_lock_owner_action' => \Kenepa\ResourceLock\Actions\GetResourceLockOwnerAction::class,
+        'get_resource_lock_owner_action' => \Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction::class,
     ],
 ];

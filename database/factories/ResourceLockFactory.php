@@ -1,9 +1,9 @@
 <?php
 
-namespace Kenepa\ResourceLock\Database\Factories;
+namespace Blendbyte\FilamentResourceLock\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kenepa\ResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 class ResourceLockFactory extends Factory
 {

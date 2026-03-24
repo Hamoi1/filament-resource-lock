@@ -1,12 +1,12 @@
 {
-    "name": "kenepa/resource-lock",
+    "name": "blendbyte/filament-resource-lock",
     "description": "Filament Resource Lock is a Filament plugin that adds resource locking functionality to your site.",
     "keywords": [
-        "Kenepa",
+        "Blendbyte",
         "laravel",
-        "resource-lock"
+        "filament-resource-lock"
     ],
-    "homepage": "https://github.com/kenepa/resource-lock",
+    "homepage": "https://github.com/blendbyte/filament-resource-lock",
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -30,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Kenepa\\ResourceLock\\": "src",
-            "Kenepa\\ResourceLock\\Database\\Factories\\": "database/factories"
+            "Blendbyte\\FilamentResourceLock\\": "src",
+            "Blendbyte\\FilamentResourceLock\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Kenepa\\ResourceLock\\Tests\\": "tests"
+            "Blendbyte\\FilamentResourceLock\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -59,10 +59,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Kenepa\\ResourceLock\\ResourceLockServiceProvider"
+                "Blendbyte\\FilamentResourceLock\\ResourceLockServiceProvider"
             ],
             "aliases": {
-                "ResourceLock": "Kenepa\\ResourceLock\\Facades\\ResourceLock"
+                "ResourceLock": "Blendbyte\\FilamentResourceLock\\Facades\\ResourceLock"
             }
         }
     },

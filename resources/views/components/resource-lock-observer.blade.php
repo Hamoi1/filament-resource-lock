@@ -72,10 +72,10 @@
                 <x-filament::icon-button icon="heroicon-s-lock-closed" size="lg" tabindex="-1"/>
             </div>
             <p x-show="resourceLockOwner" class="text-center pt-2">
-                <span  x-text="resourceLockOwner" class="font-bold"></span> {{ __('resource-lock::modal.locked_notice_user') }}
+                <span  x-text="resourceLockOwner" class="font-bold"></span> {{ __('filament-resource-lock::modal.locked_notice_user') }}
             </p>
             <p x-show="resourceLockOwner === null" class="text-center pt-2">
-                {{ __('resource-lock::modal.locked_notice') }}
+                {{ __('filament-resource-lock::modal.locked_notice') }}
             </p>
         </div>
 
@@ -89,7 +89,7 @@
 
             @if ($isAllowedToUnlock)
                 <button x-on:click="unlock()" style="margin-bottom: 0.5rem" class="fi-color fi-color-primary fi-bg-color-600 hover:fi-bg-color-500 dark:fi-bg-color-600 dark:hover:fi-bg-color-500 fi-text-color-0 hover:fi-text-color-0 dark:fi-text-color-0 dark:hover:fi-text-color-0 fi-btn fi-size-md" tabindex="-1">
-                    {{ __('resource-lock::modal.unlock_button') }}
+                    {{ __('filament-resource-lock::modal.unlock_button') }}
                 </button>
             @endif
 
@@ -97,7 +97,7 @@
                class="fi-btn fi-size-md"
                :href="url" tabindex="-1">
                 <span>
-                    {{ __('resource-lock::modal.return_button') }}
+                    {{ __('filament-resource-lock::modal.return_button') }}
                 </span>
             </a>
 

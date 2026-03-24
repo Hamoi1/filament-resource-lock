@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Resources\Pages\Concerns;
+namespace Blendbyte\FilamentResourceLock\Resources\Pages\Concerns;
 
 /**
  * This trait provides common methods used by both UsesResourceLock and

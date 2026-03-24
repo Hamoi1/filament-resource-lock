@@ -1,14 +1,14 @@
 <?php
 
-namespace Kenepa\ResourceLock;
+namespace Blendbyte\FilamentResourceLock;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Support\Facades\Blade;
-use Kenepa\ResourceLock\Models\ResourceLock;
-use Kenepa\ResourceLock\Resources\LockResource;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Resources\LockResource;
 use Livewire\Livewire;
 
 class ResourceLockPlugin implements Plugin
@@ -72,7 +72,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getId(): string
     {
-        return 'resource-lock';
+        return 'filament-resource-lock';
     }
 
     public function register(Panel $panel): void
@@ -85,11 +85,11 @@ class ResourceLockPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        Livewire::component('resource-lock-observer', Http\Livewire\ResourceLockObserver::class);
+        Livewire::component('filament-resource-lock-observer', Http\Livewire\ResourceLockObserver::class);
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::PAGE_START,
-            fn (): string => Blade::render('@livewire(\'resource-lock-observer\')'),
+            fn (): string => Blade::render('@livewire(\'filament-resource-lock-observer\')'),
         );
     }
 
@@ -102,7 +102,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldDisplayResourceLockOwner(): bool
     {
-        return $this->displayResourceLockOwner ?? config('resource-lock.lock_notice.display_resource_lock_owner', true);
+        return $this->displayResourceLockOwner ?? config('filament-resource-lock.lock_notice.display_resource_lock_owner', true);
     }
 
     public function navigationBadge(bool $show = true): static
@@ -114,7 +114,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldShowNavigationBadge(): bool
     {
-        return $this->navigationBadge ?? config('resource-lock.manager.navigation_badge', false);
+        return $this->navigationBadge ?? config('filament-resource-lock.manager.navigation_badge', false);
     }
 
     public function navigationIcon(?string $icon): static
@@ -126,7 +126,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getNavigationIcon(): ?string
     {
-        return $this->navigationIcon ?? config('resource-lock.manager.navigation_icon', 'heroicon-o-lock-closed');
+        return $this->navigationIcon ?? config('filament-resource-lock.manager.navigation_icon', 'heroicon-o-lock-closed');
     }
 
     public function navigationLabel(?string $label): static
@@ -138,7 +138,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getNavigationLabel(): string
     {
-        return __($this->navigationLabel ?? config('resource-lock.manager.navigation_label', 'Resource Lock Manager'));
+        return __($this->navigationLabel ?? config('filament-resource-lock.manager.navigation_label', 'Resource Lock Manager'));
     }
 
     public function pluralLabel(?string $label): static
@@ -150,7 +150,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getPluralLabel(): string
     {
-        return __($this->pluralLabel ?? config('resource-lock.manager.plural_label', 'Resource Locks'));
+        return __($this->pluralLabel ?? config('filament-resource-lock.manager.plural_label', 'Resource Locks'));
     }
 
     public function navigationGroup(?string $group): static
@@ -162,7 +162,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getNavigationGroup(): ?string
     {
-        return $this->navigationGroup ?? config('resource-lock.manager.navigation_group');
+        return $this->navigationGroup ?? config('filament-resource-lock.manager.navigation_group');
     }
 
     public function navigationSort(?int $sort): static
@@ -174,7 +174,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getNavigationSort(): ?int
     {
-        return $this->navigationSort ?? config('resource-lock.manager.navigation_sort');
+        return $this->navigationSort ?? config('filament-resource-lock.manager.navigation_sort');
     }
 
     public function limitedAccessToResourceLockManager(bool $limited = true): static
@@ -186,7 +186,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldLimitAccessToResourceLockManager(): bool
     {
-        return $this->limitedAccessToResourceLockManager ?? config('resource-lock.manager.limited_access', false);
+        return $this->limitedAccessToResourceLockManager ?? config('filament-resource-lock.manager.limited_access', false);
     }
 
     public function gate(?string $gate): static
@@ -198,7 +198,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getGate(): ?string
     {
-        return $this->gate ?? config('resource-lock.manager.gate', null);
+        return $this->gate ?? config('filament-resource-lock.manager.gate', null);
     }
 
     public function registerNavigation(bool $register = true): static
@@ -210,7 +210,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldRegisterNavigation(): bool
     {
-        return $this->shouldRegisterNavigation ?? config('resource-lock.manager.should_register_navigation', true);
+        return $this->shouldRegisterNavigation ?? config('filament-resource-lock.manager.should_register_navigation', true);
     }
 
     public function unlockerLimitedAccess(bool $limited = true): static
@@ -222,7 +222,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldLimitUnlockerAccess(): bool
     {
-        return $this->unlockerLimitedAccess ?? config('resource-lock.unlocker.limited_access', false);
+        return $this->unlockerLimitedAccess ?? config('filament-resource-lock.unlocker.limited_access', false);
     }
 
     public function unlockerGate(?string $gate): static
@@ -234,7 +234,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getUnlockerGate(): ?string
     {
-        return $this->unlockerGate ?? config('resource-lock.unlocker.gate', null);
+        return $this->unlockerGate ?? config('filament-resource-lock.unlocker.gate', null);
     }
 
     public function resourceClass(?string $class): static
@@ -246,7 +246,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getResourceClass(): string
     {
-        return $this->resourceClass ?? config('resource-lock.resource.class', LockResource::class);
+        return $this->resourceClass ?? config('filament-resource-lock.resource.class', LockResource::class);
     }
 
     public function userModel(?string $model): static
@@ -258,7 +258,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getUserModel(): string
     {
-        return $this->userModel ?? config('resource-lock.models.User', 'App\\Models\\User');
+        return $this->userModel ?? config('filament-resource-lock.models.User', 'App\\Models\\User');
     }
 
     public function resourceLockModel(?string $model): static
@@ -270,7 +270,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getResourceLockModel(): string
     {
-        return $this->resourceLockModel ?? config('resource-lock.models.ResourceLock', ResourceLock::class);
+        return $this->resourceLockModel ?? config('filament-resource-lock.models.ResourceLock', ResourceLock::class);
     }
 
     public function lockTimeout(?int $seconds): static
@@ -282,7 +282,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getLockTimeout(): int
     {
-        return $this->lockTimeout ?? config('resource-lock.lock_timeout', 600);
+        return $this->lockTimeout ?? config('filament-resource-lock.lock_timeout', 600);
     }
 
     public function checkLocksBeforeSaving(bool $check = true): static
@@ -294,7 +294,7 @@ class ResourceLockPlugin implements Plugin
 
     public function shouldCheckLocksBeforeSaving(): bool
     {
-        return $this->checkLocksBeforeSaving ?? config('resource-lock.check_locks_before_saving', true);
+        return $this->checkLocksBeforeSaving ?? config('filament-resource-lock.check_locks_before_saving', true);
     }
 
     public function resourceLockOwnerAction(?string $action): static
@@ -306,7 +306,7 @@ class ResourceLockPlugin implements Plugin
 
     public function getResourceLockOwnerAction(): string
     {
-        return $this->resourceLockOwnerAction ?? config('resource-lock.actions.get_resource_lock_owner_action', \Kenepa\ResourceLock\Actions\GetResourceLockOwnerAction::class);
+        return $this->resourceLockOwnerAction ?? config('filament-resource-lock.actions.get_resource_lock_owner_action', \Blendbyte\FilamentResourceLock\Actions\GetResourceLockOwnerAction::class);
     }
 
     public function usesPollingToDetectPresence(bool $enable = true): static

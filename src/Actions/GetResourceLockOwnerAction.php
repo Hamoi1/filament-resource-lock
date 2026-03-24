@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Actions;
+namespace Blendbyte\FilamentResourceLock\Actions;
 
 class GetResourceLockOwnerAction
 {

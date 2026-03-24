@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Carbon;
-use Kenepa\ResourceLock\Models\ResourceLock;
+use Blendbyte\FilamentResourceLock\Models\ResourceLock;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseCount;

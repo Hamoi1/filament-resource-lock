@@ -1,13 +1,13 @@
 <?php
 
-namespace Kenepa\ResourceLock\Models;
+namespace Blendbyte\FilamentResourceLock\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 
 class ResourceLock extends Model
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Resources;
+namespace Blendbyte\FilamentResourceLock\Resources;
 
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
@@ -10,8 +10,8 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Gate;
-use Kenepa\ResourceLock\ResourceLockPlugin;
-use Kenepa\ResourceLock\Resources\LockResource\ManageResourceLocks;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\Resources\LockResource\ManageResourceLocks;
 
 class LockResource extends Resource
 {
@@ -65,10 +65,10 @@ class LockResource extends Resource
                         return 'heroicon-o-lock-closed';
                     })->formatStateUsing(static function ($record) {
                         if ($record->isExpired()) {
-                            return __('resource-lock::manager.expired');
+                            return __('filament-resource-lock::manager.expired');
                         }
 
-                        return __('resource-lock::manager.active');
+                        return __('filament-resource-lock::manager.active');
                     }),
             ])
             ->filters([
@@ -77,16 +77,16 @@ class LockResource extends Resource
             ->actions([
                 DeleteAction::make()
                     ->icon('heroicon-o-lock-open')
-                    ->successNotificationTitle(__('resource-lock::manager.unlocked'))
-                    ->label(__('resource-lock::manager.unlock')),
+                    ->successNotificationTitle(__('filament-resource-lock::manager.unlocked'))
+                    ->label(__('filament-resource-lock::manager.unlock')),
             ])
             ->bulkActions([
                 DeleteBulkAction::make()
                     ->deselectRecordsAfterCompletion()
                     ->requiresConfirmation()
                     ->icon('heroicon-o-lock-open')
-                    ->successNotificationTitle(__('resource-lock::manager.unlocked_selected'))
-                    ->label(__('resource-lock::manager.unlock')),
+                    ->successNotificationTitle(__('filament-resource-lock::manager.unlocked_selected'))
+                    ->label(__('filament-resource-lock::manager.unlock')),
             ]);
     }
 

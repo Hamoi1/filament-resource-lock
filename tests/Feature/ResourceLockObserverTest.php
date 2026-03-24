@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Kenepa\ResourceLock\Http\Livewire\ResourceLockObserver;
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\Http\Livewire\ResourceLockObserver;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 use Livewire\Livewire;
 
 describe('ResourceLockObserver Keep-Alive Configuration', function () {

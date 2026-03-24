@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 
 function getResourceLockNavigationItem($panel, string $group = 'Settings', string $label = 'Resource Lock Manager')
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Tests\Fixtures;
+namespace Blendbyte\FilamentResourceLock\Tests\Fixtures;
 
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -14,7 +14,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Kenepa\ResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {

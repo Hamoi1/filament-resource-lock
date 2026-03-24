@@ -1,6 +1,6 @@
 <?php
 
-namespace Kenepa\ResourceLock\Tests;
+namespace Blendbyte\FilamentResourceLock\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -14,8 +14,8 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Kenepa\ResourceLock\ResourceLockServiceProvider;
-use Kenepa\ResourceLock\Tests\Fixtures\AdminPanelProvider;
+use Blendbyte\FilamentResourceLock\ResourceLockServiceProvider;
+use Blendbyte\FilamentResourceLock\Tests\Fixtures\AdminPanelProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
@@ -27,7 +27,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Kenepa\\ResourceLock\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'Blendbyte\\FilamentResourceLock\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -39,7 +39,7 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => '',
         ]);
-        config()->set('resource-lock.models.User', '\Kenepa\ResourceLock\Tests\Resources\Models\User');
+        config()->set('filament-resource-lock.models.User', '\Blendbyte\FilamentResourceLock\Tests\Resources\Models\User');
         config()->set('app.key', '6rE9Nz59bGRbeMATftriyQjrpF7DcOQm');
 
         $migration = include __DIR__ . '/../database/migrations/create_resource_lock_table.php.stub';

@@ -1,11 +1,11 @@
 <?php
 
-namespace Kenepa\ResourceLock\Resources\LockResource;
+namespace Blendbyte\FilamentResourceLock\Resources\LockResource;
 
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ManageRecords;
-use Kenepa\ResourceLock\ResourceLockPlugin;
-use Kenepa\ResourceLock\Resources\LockResource;
+use Blendbyte\FilamentResourceLock\ResourceLockPlugin;
+use Blendbyte\FilamentResourceLock\Resources\LockResource;
 
 class ManageResourceLocks extends ManageRecords
 {
@@ -14,8 +14,8 @@ class ManageResourceLocks extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Action::make(__('resource-lock::manager.unlock_all'))
-                ->label(__('resource-lock::manager.unlock_all'))
+            Action::make(__('filament-resource-lock::manager.unlock_all'))
+                ->label(__('filament-resource-lock::manager.unlock_all'))
                 ->icon('heroicon-o-lock-open')
                 ->action(fn () => ResourceLockPlugin::get()->getResourceLockModel()::truncate())
                 ->requiresConfirmation(),
