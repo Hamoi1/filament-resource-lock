@@ -1,6 +1,40 @@
 # Resource Lock
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/blendbyte/filament-resource-lock.svg?style=flat-square)](https://packagist.org/packages/blendbyte/filament-resource-lock)
+[![Tests](https://github.com/blendbyte/filament-resource-lock/actions/workflows/tests.yml/badge.svg)](https://github.com/blendbyte/filament-resource-lock/actions/workflows/tests.yml)
+[![Static Analysis](https://github.com/blendbyte/filament-resource-lock/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/blendbyte/filament-resource-lock/actions/workflows/static-analysis.yml)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+
 Filament Resource Lock is a Filament plugin that adds resource locking functionality to your site. When a user begins editing a resource, it is automatically locked to prevent other users from editing it at the same time. The resource will be automatically unlocked after a set period of time, or when the user saves or discards their changes.
+
+> **Note:** This package is a fork of [kenepa/resource-lock](https://github.com/kenepa/resource-lock), updated for **Filament v5** compatibility. If you are currently using `kenepa/resource-lock`, see the [migration guide](#migrating-from-keneparesource-lock) below.
+
+## Migrating from kenepa/resource-lock
+
+This fork introduces the following breaking changes:
+
+1. **Composer package** — replace `kenepa/resource-lock` with `blendbyte/filament-resource-lock`
+
+2. **PHP namespace** — find and replace `Kenepa\ResourceLock` with `Blendbyte\FilamentResourceLock` across your application
+
+3. **Config file** — the config was renamed from `resource-lock.php` to `filament-resource-lock.php`. Re-publish if you have a customised config:
+   ```bash
+   php artisan vendor:publish --tag="filament-resource-lock-config" --force
+   ```
+
+4. **Artisan commands** — command signatures changed from `resource-lock:*` to `filament-resource-lock:*` (e.g. `filament-resource-lock:install`)
+
+5. **Filament version** — this package requires **Filament v5**. The original `kenepa/resource-lock` targets Filament v3/v4.
+
+Quick steps:
+
+```bash
+composer remove kenepa/resource-lock
+composer require blendbyte/filament-resource-lock
+php artisan filament-resource-lock:install
+```
+
+Then update all `use Kenepa\ResourceLock\...` import statements to `use Blendbyte\FilamentResourceLock\...`.
 
 ## Installation
 

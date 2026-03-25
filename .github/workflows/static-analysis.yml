@@ -1,19 +1,12 @@
-name: Tests
+name: Static Analysis
 
 on:
   push:
   pull_request:
 
 jobs:
-  test:
+  phpstan:
     runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        php: ['8.2', '8.3', '8.4', '8.5']
-
-    name: PHP ${{ matrix.php }}
 
     steps:
       - name: Checkout
@@ -22,13 +15,12 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: '8.5'
           extensions: dom, curl, libxml, mbstring, zip, pdo, sqlite, pdo_sqlite
           coverage: none
 
       - name: Install dependencies
         uses: ramsey/composer-install@v4
 
-      - name: Run tests
-        run: vendor/bin/pest --parallel
-
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --memory-limit=512M -c phpstan.neon.dist
