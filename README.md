@@ -1,3 +1,4 @@
+![Resource Lock](filament-resource-lock-marketing.jpg)
 # Resource Lock
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/blendbyte/filament-resource-lock.svg?style=flat-square)](https://packagist.org/packages/blendbyte/filament-resource-lock)
