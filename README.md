@@ -1,8 +1,7 @@
 <a target="_blank" href="https://github.com/blendbyte/filament-resource-lock/filament-resource-lock-marketing.jpg" class="filament-hidden">
-<img style="width: 100%; max-width: 100%;" alt="filament-resource-lock-art" src="https://raw.githubusercontent.com/blendbyte/filament-resource-lock/blob/main/filament-resource-lock-marketing.jpg" >
+<img style="width: 100%; max-width: 100%;" src="https://raw.githubusercontent.com/blendbyte/filament-resource-lock/main/filament-resource-lock-marketing.jpg" >
 </a>
 
-![Resource Lock](filament-resource-lock-marketing.jpg)
 # Resource Lock
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/blendbyte/filament-resource-lock.svg?style=flat-square)](https://packagist.org/packages/blendbyte/filament-resource-lock)
